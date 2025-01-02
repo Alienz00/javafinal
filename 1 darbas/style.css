@@ -35,9 +35,18 @@ h1 {
     border: 2px solid black;
     border-radius: 10px;
     transition: background 2s, border 2s;
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 5rem;
 }
 
-.bendra:hover {
+.bendra:nth-child(9) {
+    font-size: 3rem;
+}
+
+.bendra:hover,
+.bendra.atversta {
     background: blueviolet;
     border: 2px solid rgb(255, 255, 255);
 }
