@@ -1,0 +1,43 @@
+body {
+    background: rgb(112, 80, 255);
+    text-align: center;
+}
+
+h1 {
+    background: linear-gradient(to bottom, #f73a0b, #7bfe81);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px black;
+    font-size: 5rem;
+    font-weight: 700;
+    margin-top: 90px;
+}
+
+.deze {
+    width: 900px;
+    height: 900px;
+    background: #7bfe81;
+    margin: 0 auto;
+    border: 3px solid #f73a0b;
+    border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    box-shadow: 10px 6px 8px 11px #29e004;
+}
+
+.bendra {
+    width: 27%;
+    height: 27%;
+    background: #f73a0b;
+    margin: 25px;
+    border: 2px solid black;
+    border-radius: 10px;
+    transition: background 2s, border 2s;
+}
+
+.bendra:hover {
+    background: blueviolet;
+    border: 2px solid rgb(255, 255, 255);
+}
