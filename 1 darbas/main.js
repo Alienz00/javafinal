@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let pasirinkimuId = [];
     let porosSurastos = [];
     let bandymuSkaicius = 0;
+    let tikrinama = false;
 
     // Funkcija, kuri sumaišo simbolius
     function sumaisytiSimbolius() {
@@ -23,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Funkcija, kuri apverčia kortelę
     function apverstiKortele() {
+        if (tikrinama) return;
+
         let pasirinkimas = this;
         let simbolis = pasirinkimas.getAttribute('data-simbolis');
         pasirinkimas.innerHTML = simbolis;
@@ -31,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pasirinkimuId.push(pasirinkimas.id);
 
         if (pasirinkimai.length === 2) {
+            tikrinama = true;
             bandymuSkaicius++;
             document.getElementById('devintas').innerHTML = `Bandymas: ${bandymuSkaicius}`;
             setTimeout(patikrintiAtitikima, 1000);
@@ -44,25 +48,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (pasirinkimai[0] === pasirinkimai[1]) {
             porosSurastos.push(pasirinkimai);
-            kortele1.removeEventListener('click', apverstiKortele);
-            kortele2.removeEventListener('click', apverstiKortele);
+            kortele1.removeEventListener('click', apverstiKortele); 
+            kortele2.removeEventListener('click', apverstiKortele); 
+
         } else {
-            kortele1.innerHTML = '';
-            kortele2.innerHTML = '';
-            kortele1.classList.remove('atversta');
+            kortele1.innerHTML = ''; // Užverčia pirmą kortelę
+            kortele2.innerHTML = ''; // Užverčia antrą kortelę
+            kortele1.classList.remove('atversta'); 
             kortele2.classList.remove('atversta');
-            
-        }
+            }
 
-        pasirinkimai = [];
-        pasirinkimuId = [];
-    }
-
+            pasirinkimai = []; // Išvalo pasirinkimų sąrašą
+            pasirinkimuId = []; // Išvalo pasirinkimų ID sąrašą
+            tikrinama = false;
+            }
+        
 
     priskirtiSimbolius();
     korteles.forEach(kortele => {
         if (kortele.id !== 'devintas') {
-            kortele.addEventListener('click', apverstiKortele);
+            kortele.addEventListener('click', apverstiKortele); // Prideda event listener kiekvienai kortelei, išskyrus devintą
         }
     });
 });
