@@ -13,17 +13,17 @@
 <body>
     <h1>Tūrbo dženereitor</h1><br>
     <form>
-        <label for="ilgis">Slaptažodžio ilgis:</label><br>
-        <input type="number" class="ilgis" id="ilgis" min="8" max="30" placeholder="Ilgis 8-30 simbolių"><br>
+        <label for="ilgis">Slaptažodžio ilgis iki 30 simbolių:</label><br>
+        <input type="number" class="ilgis" id="ilgis" max="30" placeholder="Ilgis iki 30 simbolių"><br>
         <label for="didziosios">Įtraukti didžiąsias raides</label>
         <input type="checkbox" id="didziosios"><br>
         <label for="skaiciai">Įtraukti skaičius</label>
         <input type="checkbox" id="skaiciai"><br>
         <label for="simboliai">Įtraukti specialiuosius simbolius</label>
         <input type="checkbox" id="simboliai"><br>
-        <button onclick="sukurti()">Sukurti slaptažodį</button><br>
+        <button type="button" onclick="sukurti()">Sukurti slaptažodį</button><br>
         <input type="text" class="slaptazodis" id="slaptazodis" readonly><br>
-        <button onclick="isiminti()">Įsiminti slaptažodį</button>
+        <button type="button" onclick="isiminti()">Įsiminti slaptažodį</button>
 
     </form>
 
