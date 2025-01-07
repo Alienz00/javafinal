@@ -42,18 +42,52 @@
 
 document.querySelector('form').addEventListener('submit', function (event) {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const pastas = formData.get('email');
-    const vardas = formData.get('name');
+    const formDuomenys = new FormData(event.target);
+    const pastas = formDuomenys.get('email');
+    const vardas = formDuomenys.get('name');
 
     const vartotojas = new Vartotojas(pastas, vardas);
-    localStorage.setItem('user', JSON.stringify(vartotojas));
-    console.log('Vartotojas išsaugotas:', vartotojas);
-})
+    vartotojas.keistiBusena();
+    localStorage.setItem('vartotojas', JSON.stringify(vartotojas));
+    console.log(vartotojas, 'Ar vartotojas prisijungęs:', vartotojas.isLoggedIn);
+
+    const zinute = document.querySelector('.message');
+        zinute.innerHTML = '';
+    
+    if (vartotojas.isLoggedIn) {
+        const h1 = document.createElement('h1');
+        h1.innerHTML = vartotojas.prisijungti();
+        zinute.appendChild(h1);
+
+        const mygtukas = document.createElement('button');
+        mygtukas.innerHTML = 'Logout';
+        zinute.appendChild(mygtukas);
+
+        mygtukas.addEventListener('click', function () {
+            zinute.innerHTML = vartotojas.atsijungti();
+            vartotojas.keistiBusena();
+            localStorage.setItem('vartotojas', JSON.stringify(vartotojas));
+            console.log(vartotojas);
+        });
+    }
+});
+
 class Vartotojas {
     constructor(pastas, vardas) {
         this.pastas = pastas;
         this.vardas = vardas;
         this.isLoggedIn = false;
+    }
+
+    keistiBusena() {
+        this.isLoggedIn = !this.isLoggedIn;
+    }
+
+    prisijungti() {
+        return `Sveiki,${this.vardas}`;
+    }
+
+    atsijungti() {
+        return 'Iki pasimatymo'
     }
 }
