@@ -1,19 +1,17 @@
 
-
 const ekranas = document.getElementById('display');
 const mygtukai = document.querySelectorAll('.btn');
 let pirmasSkaicius = '';
 let veiksmas = '';
 let antrasSkaicius = '';
 
-mygtukuKlausytojai(mygtukai, apdorotiSkaiciu, apdorotiVeiksma, atliktiSkaiciavima, isvalytiEkrana);
+mygtukuKlausytojai();
 
-function mygtukuKlausytojai(mygtukai, apdorotiSkaiciu,
-    apdorotiVeiksma, atliktiSkaiciavima, isvalytiEkrana) {
+function mygtukuKlausytojai() {
     mygtukai.forEach(mygtukas => {
         mygtukas.addEventListener('click', () => {
             const reiksme = mygtukas.textContent;
-            if (mygtukas.classList.contains('number')) {
+            if (mygtukas.classList.contains('number') || reiksme === '.') {
                 apdorotiSkaiciu(reiksme);
             } else if (mygtukas.classList.contains('operator')) {
                 apdorotiVeiksma(reiksme);
@@ -32,18 +30,29 @@ function mygtukuKlausytojai(mygtukai, apdorotiSkaiciu,
     });
 }
 
+function atnaujintiEkrana(rezultatas) {
+    ekranas.textContent = rezultatas;
+}
+
 function apdorotiSkaiciu(skaicius) {
+    if (skaicius === '.' && (veiksmas === '' ? pirmasSkaicius.includes('.') : antrasSkaicius.includes('.'))) {
+        return;
+    }
+
     if (veiksmas === '') {
-    pirmasSkaicius += skaicius;
-    atnaujintiEkrana(skaicius);
+        pirmasSkaicius += skaicius;
+        atnaujintiEkrana(pirmasSkaicius);
     } else {
         antrasSkaicius += skaicius;
-        atnaujintiEkrana(skaicius);
+        atnaujintiEkrana(antrasSkaicius);
     }
 }
 
  function apdorotiVeiksma(veiksmai) {
-    if (pirmasSkaicius === '') return;
+     if (pirmasSkaicius === '') return;
+     if (antrasSkaicius !== '') {
+         atliktiSkaiciavima();
+     }
   veiksmas = veiksmai;
   atnaujintiEkrana(veiksmai);
 }
@@ -53,7 +62,7 @@ function atliktiSkaiciavima() {
     const pirmas = parseFloat(pirmasSkaicius);
     const antras = parseFloat(antrasSkaicius);
 
-    if (isNaN(pirmas) || isNaN(antras)) return;
+    if (isNaN(pirmas) || (veiksmas !== '√' && isNaN(antras))) return;
 
     switch (veiksmas) {
         case '+':
@@ -71,6 +80,9 @@ function atliktiSkaiciavima() {
         case '%':
             rezultatas = procentai(pirmas, antras);
             break;
+        case '√':
+            rezultatas = Math.sqrt(pirmas, antras);
+            break;
         default:
             return;        
     }
@@ -78,10 +90,6 @@ function atliktiSkaiciavima() {
     pirmasSkaicius = rezultatas.toString();
     antrasSkaicius = '';
     veiksmas = '';
-}
-
-function atnaujintiEkrana(rezultatas) {
-    ekranas.textContent = rezultatas;
 }
 
 function isvalytiEkrana() {
@@ -112,11 +120,14 @@ function procentai(pirmas, antras) {
 }
 
 function trauktiSakni() {
+    let rezultatas;
     if (veiksmas === '') {
-        pirmasSkaicius = Math.sqrt(parseFloat(pirmasSkaicius)).toString();
+        rezultatas = Math.sqrt(parseFloat(pirmasSkaicius));
+        pirmasSkaicius = rezultatas.toString();
         atnaujintiEkrana(pirmasSkaicius);
     } else {
-        antrasSkaicius = Math.sqrt(parseFloat(antrasSkaicius)).toString();
+        rezultatas = Math.sqrt(parseFloat(antrasSkaicius));
+        antrasSkaicius = rezultatas.toString();
         atnaujintiEkrana(antrasSkaicius);
     }
 }
