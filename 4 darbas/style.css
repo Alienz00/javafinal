@@ -8,7 +8,11 @@ body {
 }
 
 .calculator {
-    background: rgb(248, 5, 5);
+    background: linear-gradient(135deg, #f05c5c 25%, transparent 25%) -50px 0,
+            linear-gradient(225deg, #36f8ff 25%, transparent 85%) -50px 0,
+            linear-gradient(315deg, #d10b0b 25%, transparent 25%),
+            linear-gradient(45deg, #0323f5 25%, transparent 25%);
+        background-color: #bdc6f5;
     padding: 20px;
     border: 3px solid yellow;
     border-radius: 10px;
@@ -33,13 +37,11 @@ body {
 
 }
 
-
 .btn {
     background: rgb(206, 34, 177);
     color: #fff;
     font-size: 1.5rem;
     padding: 15px;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background 3s;
