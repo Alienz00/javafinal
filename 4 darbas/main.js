@@ -31,7 +31,9 @@ function mygtukuKlausytojai() {
 }
 
 function atnaujintiEkrana(rezultatas) {
+    if (rezultatas.length < 15) {
     ekranas.textContent = rezultatas;
+    }
 }
 
 function apdorotiSkaiciu(skaicius) {
@@ -86,7 +88,7 @@ function atliktiSkaiciavima() {
         default:
             return;        
     }
-    atnaujintiEkrana(rezultatas);
+    atnaujintiEkrana(rezultatas.toString());
     pirmasSkaicius = rezultatas.toString();
     antrasSkaicius = '';
     veiksmas = '';
