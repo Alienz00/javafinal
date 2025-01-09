@@ -31,8 +31,10 @@ function mygtukuKlausytojai() {
 }
 
 function atnaujintiEkrana(rezultatas) {
-    if (rezultatas.length < 15) {
+    if (rezultatas.length <= 15) {
     ekranas.textContent = rezultatas;
+    } else {
+        ekranas.textContent = rezultatas.slice(0, 15);
     }
 }
 
@@ -88,7 +90,11 @@ function atliktiSkaiciavima() {
         default:
             return;        
     }
-    atnaujintiEkrana(rezultatas.toString());
+    rezultatas = rezultatas.toPrecision(15);
+
+    rezultatas = parseFloat(rezultatas).toString();
+
+    atnaujintiEkrana(rezultatas);
     pirmasSkaicius = rezultatas.toString();
     antrasSkaicius = '';
     veiksmas = '';
